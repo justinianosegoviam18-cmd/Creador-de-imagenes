@@ -1,6 +1,38 @@
 const logo = new Image();
 logo.src = "logo.png";
 
+function ajustarTexto(ctx, texto, maxWidth, tamañoInicial, x, y, lineHeight) {
+    let fontSize = tamañoInicial;
+    ctx.font = "bold " + fontSize + "px Arial";
+
+    while (ctx.measureText(texto).width > maxWidth && fontSize > 20) {
+        fontSize -= 2;
+        ctx.font = "bold " + fontSize + "px Arial";
+    }
+
+    // Dividir en líneas si aún es muy largo
+    const palabras = texto.split(" ");
+    let linea = "";
+    let lineas = [];
+
+    for (let i = 0; i < palabras.length; i++) {
+        let prueba = linea + palabras[i] + " ";
+        if (ctx.measureText(prueba).width > maxWidth) {
+            lineas.push(linea);
+            linea = palabras[i] + " ";
+        } else {
+            linea = prueba;
+        }
+    }
+    lineas.push(linea);
+
+    for (let i = 0; i < lineas.length; i++) {
+        ctx.fillText(lineas[i], x, y + (i * lineHeight));
+    }
+
+    return fontSize;
+}
+
 function generarImagen() {
 
     const canvas = document.getElementById("canvas");
@@ -12,50 +44,69 @@ function generarImagen() {
     const carrera = document.getElementById("carreraInput").value;
     const gestion = document.getElementById("gestionInput").value;
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     // Fondo blanco
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Diseño azul decorativo (esquina)
+    // Ondas azules decorativas
     ctx.fillStyle = "#0b1f4b";
     ctx.beginPath();
-    ctx.moveTo(0,0);
-    ctx.lineTo(500,0);
-    ctx.lineTo(0,300);
-    ctx.closePath();
+    ctx.moveTo(0, 0);
+    ctx.quadraticCurveTo(1080, 200, 1080, 0);
     ctx.fill();
 
-    // Línea inferior azul
-    ctx.fillRect(0, 1000, 1080, 80);
+    ctx.fillStyle = "#1d3c78";
+    ctx.beginPath();
+    ctx.moveTo(0, 1080);
+    ctx.quadraticCurveTo(0, 850, 400, 1080);
+    ctx.fill();
 
-    // Logo centrado arriba
-    ctx.drawImage(logo, 390, 150, 300, 300);
-
-    // Texto principal
+    // Círculos decorativos
+    ctx.globalAlpha = 0.1;
     ctx.fillStyle = "#0b1f4b";
-    ctx.font = "bold 70px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText(materia.toUpperCase(), 540, 550);
+    ctx.beginPath();
+    ctx.arc(900, 200, 150, 0, Math.PI * 2);
+    ctx.fill();
 
-    ctx.font = "bold 90px Arial";
-    ctx.fillText(grupo.toUpperCase(), 540, 650);
+    ctx.beginPath();
+    ctx.arc(200, 900, 200, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.globalAlpha = 1;
+
+    // Logo
+    ctx.drawImage(logo, 390, 130, 300, 300);
+
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#0b1f4b";
+
+    // Materia responsive
+    ajustarTexto(ctx, materia.toUpperCase(), 900, 80, 540, 520, 90);
+
+    // Grupo responsive
+    ctx.fillStyle = "#1d3c78";
+    ajustarTexto(ctx, grupo.toUpperCase(), 900, 100, 540, 650, 100);
 
     // Información opcional
+    ctx.fillStyle = "#333";
     ctx.font = "40px Arial";
-    let y = 750;
 
-    if(docente){
-        ctx.fillText("Docente: " + docente, 540, y);
+    let y = 780;
+
+    if (docente) {
+        ajustarTexto(ctx, "Docente: " + docente, 900, 40, 540, y, 50);
         y += 60;
     }
 
-    if(carrera){
-        ctx.fillText("Carrera: " + carrera, 540, y);
+    if (carrera) {
+        ajustarTexto(ctx, "Carrera: " + carrera, 900, 40, 540, y, 50);
         y += 60;
     }
 
-    if(gestion){
-        ctx.fillText("Gestión: " + gestion, 540, y);
+    if (gestion) {
+        ajustarTexto(ctx, "Gestión: " + gestion, 900, 40, 540, y, 50);
     }
 }
 
