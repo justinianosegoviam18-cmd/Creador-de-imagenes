@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador WhatsApp - Facultad</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador Perfil WhatsApp</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
 
-    <h1>Generador de Imagen para WhatsApp</h1>
+<h1>Generador Foto Perfil WhatsApp</h1>
 
-    <div class="formulario">
+<div class="formulario">
+    <input type="text" id="materiaInput" placeholder="Materia">
+    <input type="text" id="grupoInput" placeholder="Grupo">
+    <input type="text" id="extraInput" placeholder="Texto extra (Opcional)">
+    
+    <button onclick="generarImagen()">Generar</button>
+    <button onclick="descargarImagen()">Descargar</button>
+</div>
 
-        <input type="text" id="materiaInput" placeholder="Materia (Obligatorio)">
-        <input type="text" id="grupoInput" placeholder="Grupo (Obligatorio)">
-        
-        <input type="text" id="docenteInput" placeholder="Docente (Opcional)">
-        <input type="text" id="carreraInput" placeholder="Carrera (Opcional)">
-        <input type="text" id="gestionInput" placeholder="Gestión (Opcional)">
-        
-        <button onclick="generarImagen()">Generar Imagen</button>
-        <button onclick="descargarImagen()">Descargar Imagen</button>
-    </div>
-
-    <div class="preview">
-        <canvas id="canvas" width="1080" height="1080"></canvas>
-    </div>
+<div class="preview">
+    <canvas id="canvas" width="1080" height="1080"></canvas>
+</div>
 
 </div>
 
