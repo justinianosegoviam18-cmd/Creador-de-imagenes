@@ -19,7 +19,9 @@ function generarImagen() {
     const ctx = canvas.getContext("2d");
 
     const materia = document.getElementById("materiaInput").value;
+    const sigla = document.getElementById("siglaInput").value;
     const grupo = document.getElementById("grupoInput").value;
+    const gestion = document.getElementById("gestionInput").value;
     const extra = document.getElementById("extraInput").value;
 
     ctx.clearRect(0,0,1080,1080);
@@ -28,30 +30,52 @@ function generarImagen() {
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, 1080, 1080);
 
-    // Círculo azul decorativo central
+    // Marco circular azul exterior
     ctx.fillStyle = "#0b1f4b";
     ctx.beginPath();
     ctx.arc(540, 540, 520, 0, Math.PI * 2);
     ctx.fill();
 
-    // Círculo blanco interno (marco)
+    // Interior blanco
     ctx.fillStyle = "#ffffff";
     ctx.beginPath();
     ctx.arc(540, 540, 480, 0, Math.PI * 2);
     ctx.fill();
 
-    // Logo centrado
-    ctx.drawImage(logo, 390, 180, 300, 300);
+    // Logo MÁS GRANDE
+    ctx.drawImage(logo, 340, 140, 400, 400);
 
     ctx.textAlign = "center";
     ctx.fillStyle = "#0b1f4b";
 
-    ajustarTexto(ctx, materia.toUpperCase(), 800, 80, 540, 600);
-    ajustarTexto(ctx, grupo.toUpperCase(), 800, 100, 540, 700);
+    let altura = 600;
 
-    if(extra){
+    if (materia) {
+        ajustarTexto(ctx, materia.toUpperCase(), 800, 70, 540, altura);
+        altura += 90;
+    }
+
+    if (sigla) {
+        ctx.fillStyle = "#1d3c78";
+        ajustarTexto(ctx, sigla.toUpperCase(), 800, 60, 540, altura);
+        altura += 80;
+        ctx.fillStyle = "#0b1f4b";
+    }
+
+    if (grupo) {
+        ajustarTexto(ctx, grupo.toUpperCase(), 800, 90, 540, altura);
+        altura += 100;
+    }
+
+    if (gestion) {
         ctx.font = "40px Arial";
-        ctx.fillText(extra, 540, 780);
+        ctx.fillText("Gestión: " + gestion, 540, altura);
+        altura += 60;
+    }
+
+    if (extra) {
+        ctx.font = "35px Arial";
+        ctx.fillText(extra, 540, altura);
     }
 }
 
