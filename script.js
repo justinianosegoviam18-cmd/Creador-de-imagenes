@@ -83,10 +83,30 @@ if (!gestion.trim()) {
 }
 
 function descargarImagen(){
+
     const canvas = document.getElementById("canvas");
+
+    let materia = document.getElementById("materiaInput").value.trim();
+    let grupo = document.getElementById("grupoInput").value.trim();
+
+    // Valores por defecto si están vacíos
+    if(!materia) materia = "MATERIA";
+    if(!grupo) grupo = "GRUPO";
+
+    // Limpiar caracteres inválidos para nombres de archivo
+    function limpiarTexto(texto){
+        return texto
+            .toUpperCase()
+            .replace(/\s+/g, "_")       // Espacios a guiones bajos
+            .replace(/[^\w\-]/g, "");   // Quitar caracteres especiales
+    }
+
+    const nombreArchivo = limpiarTexto(materia) + "_" + limpiarTexto(grupo) + ".png";
+
     const enlace = document.createElement("a");
-    enlace.download = "perfil_whatsapp.png";
+    enlace.download = nombreArchivo;
     enlace.href = canvas.toDataURL("image/png");
     enlace.click();
 }
+
 
