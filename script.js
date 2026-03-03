@@ -21,7 +21,10 @@ function generarImagen() {
     const materia = document.getElementById("materiaInput").value;
     const sigla = document.getElementById("siglaInput").value;
     const grupo = document.getElementById("grupoInput").value;
-    const gestion = document.getElementById("gestionInput").value;
+    let gestion = document.getElementById("gestionInput").value;
+if (!gestion.trim()) {
+    gestion = "1/2026";
+}
     const extra = document.getElementById("extraInput").value;
 
     ctx.clearRect(0,0,1080,1080);
@@ -86,3 +89,4 @@ function descargarImagen(){
     enlace.href = canvas.toDataURL("image/png");
     enlace.click();
 }
+
