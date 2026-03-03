@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Imagen - Facultad</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Generador de Imagen para Grupos</h1>
+
+    <div class="formulario">
+        <label>Materia:</label>
+        <input type="text" id="materiaInput" placeholder="Ej: Introducción a la Informática">
+
+        <label>Grupo:</label>
+        <input type="text" id="grupoInput" placeholder="Ej: SA-VI">
+
+        <button onclick="generarImagen()">Generar Imagen</button>
+        <button onclick="descargarImagen()">Descargar Imagen</button>
+    </div>
+
+    <canvas id="canvas" width="900" height="500"></canvas>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
